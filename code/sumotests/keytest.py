@@ -1,4 +1,4 @@
-from guizero import TextBox, Text
+from guizero import TextBox, App, Text
 
 def read_key(event_data):
     print("Read : " + event_data.key)
