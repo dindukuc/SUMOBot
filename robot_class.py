@@ -43,9 +43,22 @@ class robot:
     def stop(self): #stop motors
         ser.write(b'S')
 
-    def turn(self, direction = 'L', angle):
+    def turn(self, direction = 'L', time):
         if direction == 'L':
-            #move the motors so the robot turns right
+            ser.write(b'L')
+            ser.write(int(127)) #move the motors so the robot turns left 
+            ser.write(b'R')
+            ser.write(int(255))
+            
+            time.sleep(time)
+            self.stop()
+
         else:
-            #move the motors so the robot turns left
+            ser.write(b'R')
+            ser.write(int(127)) #move the motors so the robot turns right 
+            ser.write(b'L')
+            ser.write(int(255))
+            
+            time.sleep(time)
+            self.stop() 
 
