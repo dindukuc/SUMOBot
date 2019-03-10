@@ -20,22 +20,25 @@ class robot:
 
     ir = [0, 0, 0, 0] #top left, top right, bottom left, bottom right
 
-    bttn = [0, 0, 0, 0] #top left, top right, bottom left, bottom right
+    bttn = [0, 0, 0, 0] #front , right, left, back
 
     imu = 0 #don't know how this works yet
 
     sensorData = 0 #keeps data that we can parse through
+
+    def tof(self):
+        return vl53.range
 
     def getSensors(self):
         ser.write(b'A')#request bulk serial data
         self.sensorData = ser.read(10)#read serial data
 
 
-    def moveFwd(self, speed): #robot move forward
+    def moveFwd(self, speed=100): #robot move forward
         ser.write(b'F')
         ser.write(int((127/100)*speed))
 
-    def moveBck(self, speed): #robot move back
+    def moveBck(self, speed=100): #robot move back
         ser.write(b'B')
         ser.write(int(128 + (127 / 100) * speed))
 
@@ -50,8 +53,9 @@ class robot:
             ser.write(b'R')
             ser.write(int(255))
             
-            time.sleep(time)
-            self.stop()
+            if time > 0:
+                time.sleep(time)
+                self.stop()
 
         else:
             ser.write(b'R')
@@ -59,6 +63,7 @@ class robot:
             ser.write(b'L')
             ser.write(int(255))
             
-            time.sleep(time)
-            self.stop() 
+            if time > 0:
+                time.sleep(time)
+                self.stop()
 
