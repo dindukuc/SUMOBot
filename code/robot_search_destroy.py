@@ -8,8 +8,19 @@ import board
 import busio
 import adafruit_vl53l0x
 import serial
+from serial import *
 
-from robot_class.py import robot
+from robot_class import robot
+
+i2c = busio.I2C(board.SCL, board.SDA)
+vl53 = adafruit_vl53l0x.VL53L0X(i2c)
+ser = serial.Serial('/dev/ttyS0',
+                    38400,
+                    parity=PARITY_NONE,
+                    stopbits=STOPBITS_ONE,
+                    bytesize=EIGHTBITS,
+                    timeout=1)  # open serial port
+
 
 range = 650  #set IR range threshold (mm)
 
@@ -33,7 +44,7 @@ SumoBot = robot()
 
 
 def search():
-    SumoBot.turn(R, 0)
+    SumoBot.turn("R", 0, 25)
 
 
     while True: 
@@ -44,7 +55,7 @@ def search():
             while True:
                 if SumoBot.tof() > range:
                     diff = time.time() - start 
-                    SumoBot.turn(L,(diff/2))
+                    SumoBot.turn("L",(diff/2), 25)
                     SumoBot.moveFwd(50)
                     
                     while SumoBot.tof() < range:
