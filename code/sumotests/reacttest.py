@@ -25,6 +25,32 @@ def forward(speed):
     ser.write(b'R')
     ser.write([speed])
 
+def backward(speed):
+
+    speed = int(128 + (127/100)*speed)
+    ser.write(b'L')
+    ser.write([speed])
+    sleep(.00001)
+    ser.write(b'R')
+    ser.write([speed])
+
+def stop():
+    
+    ser.write(b'S')
+
+def rot(speed, time):
+
+    speed1 = int((127/100)*speed)
+    speed2 = int(128+(127/100)*speed)
+    
+    ser.write(b'L')
+    ser.write([speed1])
+    sleep(.00001)
+    ser.write(b'R')
+    ser.write([speed2])
+
+    sleep(time)
+    stop()
 
 
 
@@ -47,8 +73,10 @@ while True:
         forward(25)
 
     if data != "00" and s == 1:
-           s=0 
-           forward(0)
+        s=0 
+        stop()
+        backward(25)
+        rot(25, .5)
 
 
 #TOF test
@@ -68,24 +96,53 @@ while True:
 
         
     
+#TOF and IR combined test
 
-##while True:
-##
-##    ser.write(b'I')
-##    ir = str(ser.read(1).hex())
-##    tof = vl53.range
-##
-##    
-##    if (tof > 650 or ir != "00") and s == 0:
-##        s=1 
-##        forward(0)
-##    if (tof < 650 and ir == "00") and s == 1:
-##        s=0
-##        forward(25)
+# while True:
+
+#    ser.write(b'I')
+#    ir = str(ser.read(1).hex())
+#    tof = vl53.range
+
+   
+
+
+#    if (tof > 650 or ir != "00") and s == 0:
+#        s=1 
+       
+#        stop()
+   
+#    if (tof < 650 and ir == "00") and s == 1:
+#        s=0
+#        forward(25)
     
+#search and destroy test
 
 
+# while True:
 
+#    ser.write(b'I')
+#    ir = str(ser.read(1).hex())
+#    tof = vl53.range
+
+   
+
+
+#    if (ir != "00") and s == 0:
+#        s=1 
+#        stop()
+#        backward(25)
+#        rot(25, .5)
+
+   
+#    elif (ir == "00") and s == 1:
+       
+       
+    
+#     elif tof > 500 and s == 1: 
+
+       
+    
 
 
     
