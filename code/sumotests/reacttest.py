@@ -105,44 +105,46 @@ while True:
     
 #TOF and IR combined test
 
-# while True:
-
-#    ser.write(b'I')
-#    ir = str(ser.read(1).hex())
-#    tof = vl53.range
-
-   
 
 
-#    if (tof > 650 or ir != "00") and s == 0:
-#        s=1 
-       
-#        stop()
-   
-#    if (tof < 650 and ir == "00") and s == 1:
-#        s=0
-#        forward(25)
-    
+## while True:
+##
+##    ser.write(b'I')
+##    ir = str(ser.read(1).hex())
+##    tof = vl53.range
+##
+##   
+##
+##
+##    if (tof > 650 or ir != "00") and s == 0:
+##        s=1 
+##       
+##        stop()
+##   
+##    if (tof < 650 and ir == "00") and s == 1:
+##        s=0
+##        forward(25)
+##    
 #search and destroy test
 
 
-# while True:
+ while True:
 
-#    ser.write(b'I')
-#    ir = str(ser.read(1).hex())
-#    tof = vl53.range
-
-   
-
-
-#    if (ir != "00") and s == 0:
-#        s=1 
-#        stop()
-#        backward(25)
-#        rot(25, .5)
+    ser.write(b'I')
+    ir = str(ser.read(1).hex())
+    tof = vl53.range
 
    
-#    elif (ir == "00") and s == 1:
+
+
+    if (ir != "00") and s == 0:
+        s=1 
+        stop()
+        backward(25)
+        rot(25, .5)
+
+   
+    elif (ir == "00") and s == 1:
        
        
     
