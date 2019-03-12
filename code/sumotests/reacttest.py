@@ -55,29 +55,36 @@ def rot(speed, time):
 
 
 
-print(ser.name) 
+print(ser.name)
 
 s=0
-
 #Irtest
 while True:
 
-    
     ser.write(b'I')
     data = str(ser.read(1).hex())
     print(data)
+    ser.write(b'H')
+    btn = str(ser.read(1).hex())
     sleep(.0001)
 
     if data == "00" and s == 0:
         s=1
-        forward(25)
+        forward(50)
 
     if data != "00" and s == 1:
-        s=0 
+
+        s=0
         stop()
         backward(25)
+        sleep(.75)
         rot(25, .5)
 
+    if btn != "00":
+        stop()
+        break    
+
+        
 
 #TOF test
 ##while True:
