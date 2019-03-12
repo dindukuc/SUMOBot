@@ -45,9 +45,17 @@ def search():
                 if SumoBot.tof() > range:
                     diff = time.time() - start 
                     SumoBot.turn(L,(diff/2))
-                    SumoBot.moveFwd()
+                    SumoBot.moveFwd(50)
                     
                     while SumoBot.tof() < range:
+                        
+                        if SumoBot.ir() != "00": 
+                            SumoBot.stop()
+                            SumoBot.moveBck(25)
+                            time.sleep(.75)
+                            SumoBot.turn("L", .5, 25)
+                            break
+                        
                         time.wait(.001)
                     break    
             break
@@ -56,15 +64,9 @@ def search():
 
 
 
-
-
-#while True: 
-    SumoBot.getSensors()
-
-
- #   if(): #IR line
-          #
-    
+while True:
+    search()
+    time.sleep(1) 
 
 
 

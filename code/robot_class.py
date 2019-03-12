@@ -1,6 +1,6 @@
 import io
 import math as m
-import time
+from time import sleep
 import board
 import busio
 import adafruit_vl53l0x
@@ -29,29 +29,64 @@ class robot:
     def tof(self):
         return vl53.range
 
+    def ir(self):
+        ser.write(b'I')
+        data = str(ser.read(1).hex())
+        return data
+    
+    def buttons(self):
+        ser.write(b'H')
+        data = str(ser.read(1).hex())
+        return data
+
     def getSensors(self):
         ser.write(b'A')#request bulk serial data
         self.sensorData = ser.read(10)#read serial data
 
 
     def moveFwd(self, speed=100): #robot move forward
-        ser.write(b'F')
-        ser.write(int((127/100)*speed))
+         
+        if speed != 100:
+            speed = int((127/100)*speed)
+            ser.write(b'L')
+            ser.write([speed])
+            sleep(.00001)
+            ser.write(b'R')
+            ser.write([speed])
+        else: 
+            ser.write(b'F')
+            sleep(.00001)
+
+
 
     def moveBck(self, speed=100): #robot move back
-        ser.write(b'B')
-        ser.write(int(128 + (127 / 100) * speed))
+        
+        if speed != 100:
+            speed = int(128+(127/100)*speed)
+            ser.write(b'L')
+            ser.write([speed])
+            sleep(.00001)
+            ser.write(b'R')
+            ser.write([speed])
+        else: 
+            ser.write(b'B')
+            sleep(.00001)
 
 
     def stop(self): #stop motors
         ser.write(b'S')
 
-    def turn(self, direction, time):
+    def turn(self, direction, time, speed):
+        speed1 = int((127/100)*speed)
+        speed2 = int(128+(127/100)*speed)
+        
+        
         if direction == 'L':
             ser.write(b'L')
-            ser.write(int(127)) #move the motors so the robot turns left 
+            ser.write([speed2]) #move the motors so the robot turns left 
+            sleep(.00001)
             ser.write(b'R')
-            ser.write(int(255))
+            ser.write([speed1])
             
             if time > 0:
                 time.sleep(time)
@@ -59,9 +94,10 @@ class robot:
 
         else:
             ser.write(b'R')
-            ser.write(int(127)) #move the motors so the robot turns right 
+            ser.write([speed2]) #move the motors so the robot turns right 
+            sleep(.00001)
             ser.write(b'L')
-            ser.write(int(255))
+            ser.write([speed1])
             
             if time > 0:
                 time.sleep(time)
