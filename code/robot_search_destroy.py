@@ -9,7 +9,7 @@ import busio
 import adafruit_vl53l0x
 import serial
 
-from robot_class import robot
+from robot_class.py import robot
 
 range = 650  #set IR range threshold (mm)
 
@@ -20,12 +20,12 @@ SumoBot = robot()
 #Sweep ring
 
 
-def button(): 
+#def button(): 
 
-    SumoBot.getSensors()
+#    SumoBot.getSensors()
         
-        if SumoBot.bttn[1]:
-            SumoBot.moveFwd()
+#          if SumoBot.bttn[1]:
+#            SumoBot.moveFwd()
             
 
 
@@ -58,11 +58,11 @@ def search():
 
 
 
-while True: 
+#while True: 
     SumoBot.getSensors()
 
 
-    if(): #IR line
+ #   if(): #IR line
           #
     
 

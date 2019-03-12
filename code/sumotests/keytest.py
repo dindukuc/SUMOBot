@@ -15,16 +15,17 @@ def right():
 def left():
     print('L')
 
-app = App("Display Sensor", layout="auto")
+app = App("Key Testing", layout="auto")
 
 key_w = TextBox(app)
 
-key_w.when_key_pressed = read_key()
 
 
-text = Text(app, text ="", visible=True)
+text = Text(app, text ="S", visible=True)
 
-#button4.after(3, clear)
+key_w.when_key_pressed = read_key
+
+
 
 
 app.display()
