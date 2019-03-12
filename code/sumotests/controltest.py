@@ -43,10 +43,11 @@ def stop():
 def test():
 ##    ser.write(b'V')
 ##    data = ser.read(1).hex()
-    ser.write(b'H')
+    ser.write(b'E')
     data = ser.read(1).hex()
-    text.value = str(data)
+    text.value = int(data, 16)
     print(data)
+
 
     
     

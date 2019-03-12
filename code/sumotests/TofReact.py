@@ -129,37 +129,39 @@ s=0
 #search and destroy test
 
 
- while True:
+while True:
 
-    ser.write(b'I')
-    ir = str(ser.read(1).hex())
-    ser.write(b'H')
-    btn = str(ser.read(1).hex())
-    tof = vl53.range
+   ser.write(b'I')
+   ir = str(ser.read(1).hex())
+   ser.write(b'H')
+   btn = str(ser.read(1).hex())
+   tof = vl53.range
 
    
 
 
-    if (ir == "00") and s == 0:
-       rot(12, 0)
-       s = 1     
-    if (tof < 400) and s == 1: 
-        forward(75)
-        s = 2
+   if (ir == "00") and s == 0:
+      rot(12, 0)
+      s = 1     
+   if (tof < 400) and s == 1: 
+       sleep(.1)
+       forward(75)
+       s = 2
 
 
 
 
        
-    if (ir != "00"):
-        s=0 
-        stop()
-        backward(25)
-        rot(25, .5)
+   if (ir != "00"):
+       s=0 
+       stop()
+       backward(25)
+       sleep(.75)
+       rot(25, .5)
     
-    if btn == "04":
-        stop()
-        break   
+   if btn == "04":
+       stop()
+       break   
 
        
     
