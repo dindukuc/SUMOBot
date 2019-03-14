@@ -61,16 +61,16 @@ def rot(speed, time, dir):
         stop()
 
 def evadeEdge(ir):
-    if ir == "04" or ir == "08":
+    if ir == "04" or ir == "08" or ir == "0c":
         stop()
         backward(50)
         sleep(.75)
-        rot(25, .6)
-    elif ir == "01" or ir == "02":
+        rot(50, .6, "R")
+    elif ir == "01" or ir == "02" or ir == "03":
         stop()
         forward(50)
         sleep(.75)
-        rot(25, .6)
+        rot(50, .6, "L")
 
 def defend(btn):
     if btn == "08":      #front
@@ -108,20 +108,21 @@ while True:
         s = "search"
 
     elif s == "search":
-        rot(12, 0)
+        rot(25, 0, "L")
 
     elif s == "charge":
         #sleep(.1)
         forward(75)
 
     elif s == "defend":
-        defend()
+        defend(btn)
         s = "search"
 
     # elif s == "superEvade":
     #     superEvade()
 
     elif s == "evadeEdge":
+        print("evadeedge")
         evadeEdge(ir)
         s = "start"
 
@@ -136,10 +137,16 @@ while True:
     # if ir != "00" and btn != "00":
     #     s = "superEvade"
 
+    if btn == "03":
+        stop()
+        print("I died :(")
+        break;
     if ir != "00":
-        s == "evadeEdge"
+        s = "evadeEdge"
 
     elif btn != "00":
-        s == "defend"
+        s = "defend"
+
+    
 
     

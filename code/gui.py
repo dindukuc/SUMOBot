@@ -111,9 +111,9 @@ ir = Text(app, text="IR sensors: " + init)
 bttn = Text(app, text="Button sensors: " + init)
 mtr = Text(app, text="Motor Speed: " + init)
 
-button1 = PushButton(app, text="Forward", command=forward, args=[25])
+button1 = PushButton(app, text="Forward", command=forward, args=[75])
 button2 = PushButton(app, text="Stop", command=stop)
-button3 = PushButton(app, text="Backward", command=backward, args=[25])
+button3 = PushButton(app, text="Backward", command=backward, args=[75])
 
 
 
