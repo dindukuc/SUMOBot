@@ -36,7 +36,8 @@ class robot:
     sensorData = 0 #keeps data that we can parse through
 
     def tof(self):
-        return vl53.range
+        self.tof = vl53.range
+		return self.tof
 
     def ir(self):
         ser.write(b'I')
