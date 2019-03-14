@@ -27,7 +27,7 @@ def forward(speed):
 
 def backward(speed):
 
-    speed = int(128 + (127/100)*speed)
+    speed = int(~((127/100)*speed)+1)
     ser.write(b'L')
     ser.write([speed])
     sleep(.00001)
@@ -41,7 +41,7 @@ def stop():
 def rot(speed, time):
 
     speed1 = int((127/100)*speed)
-    speed2 = int(128+(127/100)*speed)
+    speed2 = int(~((127/100)*speed) + 1 )
     
     ser.write(b'L')
     ser.write([speed1])
@@ -82,9 +82,8 @@ while True:
 
     if btn != "00":
         stop()
-        break    
+        break
 
-        
 
 #TOF test
 ##while True:
