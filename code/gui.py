@@ -89,7 +89,8 @@ def backward(speed):
 
 
 ##  ser.write(b'B')
-    speed = int(~((127/100)*speed) +1)
+    speed = 256 - int((127/100)*speed)
+    print(speed)
     ser.write(b'L')
     ser.write([speed])
     sleep(.00001)

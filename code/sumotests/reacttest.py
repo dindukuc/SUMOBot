@@ -27,7 +27,7 @@ def forward(speed):
 
 def backward(speed):
 
-    speed = int(~((127/100)*speed)+1)
+    speed = 256 - int((127/100)*speed)
     ser.write(b'L')
     ser.write([speed])
     sleep(.00001)
@@ -41,7 +41,7 @@ def stop():
 def rot(speed, time):
 
     speed1 = int((127/100)*speed)
-    speed2 = int(~((127/100)*speed) + 1 )
+    speed2 = 256 - int((127/100)*speed)
     
     ser.write(b'L')
     ser.write([speed1])
@@ -72,13 +72,21 @@ while True:
         s=1
         forward(50)
 
-    if data != "00" and s == 1:
+    if (data == "04" or data == "08") and s == 1:
 
         s=0
         stop()
-        backward(25)
+        backward(50)
         sleep(.75)
         rot(25, .5)
+
+    if (data == "01" or data == "02") and s == 1:
+        s=0
+        stop()
+        forward(50)
+        sleep(.75)
+        rot(25, .5)
+
 
     if btn != "00":
         stop()
@@ -127,23 +135,23 @@ while True:
 #search and destroy test
 
 
- while True:
-
-    ser.write(b'I')
-    ir = str(ser.read(1).hex())
-    tof = vl53.range
-
-   
-
-
-    if (ir != "00") and s == 0:
-        s=1 
-        stop()
-        backward(25)
-        rot(25, .5)
-
-   
-    elif (ir == "00") and s == 1:
+##while True:
+##
+##    ser.write(b'I')
+##    ir = str(ser.read(1).hex())
+##    tof = vl53.range
+##
+##   
+##
+##
+##    if (ir != "00") and s == 0:
+##        s=1 
+##        stop()
+##        backward(25)
+##        rot(25, .5)
+##
+##   
+##    elif (ir == "00") and s == 1:
        
        
     
