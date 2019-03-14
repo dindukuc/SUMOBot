@@ -71,7 +71,7 @@ class robot:
     def moveBck(self, speed=100): #robot move back
         
         if speed != 100:
-            speed = int(128+(127/100)*speed)
+            speed = int(~((127/100)*speed)+1)
             ser.write(b'L')
             ser.write([speed])
             sleep(.00001)
@@ -87,7 +87,7 @@ class robot:
 
     def turn(self, direction, time, speed):
         speed1 = int((127/100)*speed)
-        speed2 = int(128+(127/100)*speed)
+        speed2 = int(~((127/100)*speed)+1)
         
         
         if direction == 'L':
